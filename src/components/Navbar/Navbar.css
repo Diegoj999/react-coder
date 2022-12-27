@@ -1,0 +1,29 @@
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+ 
+}
+
+.navBar-menu{
+    display: inherit;
+    text-decoration: none;
+    list-style-type: none;
+    padding: 0.5em 0;
+}
+
+.navBar-logo{
+    line-height: 2.0em;
+    margin-left: 1.0em;
+    font-size: 2.0em;
+}
+
+.navBar-item{
+    padding: 0 2em;
+    margin-top: 1em;
+    font-size: 1.0em;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
