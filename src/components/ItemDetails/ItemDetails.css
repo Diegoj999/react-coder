@@ -1,0 +1,26 @@
+.itemDetails-title{
+    background-color: #1F487E;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    padding-left: 1em;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
+.itemDetails-price{
+    font-size: 2em;
+ 
+}
+
+.itemDetails-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.itemDetails-priceOld{
+    font-size: 2em;
+    text-decoration: line-through;
+    color: rgba(0,0,0,0.5)
+}
