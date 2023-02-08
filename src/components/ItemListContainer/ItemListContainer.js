@@ -1,45 +1,39 @@
-import ItemList from "../ItemList/ItemList"
-import {getProducts, getProductsByCategory } from "../../asyncMock"
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import ItemList from '../ItemList/ItemList'
+import { useParams } from 'react-router-dom'
+import { useAsync } from '../../hooks/useAsync'
+import { useTitle } from '../../hooks/useTitle'
+import { getProducts } from '../../services/firebase/firestore/products'
+import Spinner from '../Spinner/Spinner'
 
-const ItemListContainer = ({greeting})=>{
+const ItemListContainer = ({ greeting }) => {
 
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const {categoryId} = useParams()
+    const { categoryId } = useParams()
 
-  useEffect(() =>{
-    
-    const asyncFunction = !categoryId ? getProducts : getProductsByCategory
+    const haveCategory = (greeting) => !categoryId ? greeting : categoryId.charAt(0).toUpperCase() + categoryId.slice(1)
 
-    asyncFunction(categoryId).then(response =>{
-      setProducts(response)
-    }).catch(error => {
-      console.log(error)
-    }).finally(() => {
-      setLoading(false)
-    })
-     
-  }, [categoryId])
+    useTitle(haveCategory(greeting), [categoryId])
 
-  if(loading){
-    return (
-      <div className="text-center mt-5">
-        <div className="spinner-grow text-primary" role="status">
-          <span className="sr-only"></span>
-        </div>
-      </div>
-    )
-  }
+
+    const getProductsWithCategory = () => getProducts(categoryId)
+
+    const { data: products, error, loading } = useAsync(getProductsWithCategory, [categoryId])
+
+
+      if(loading){
+        return (
+          <Spinner/>
+        )
+      }
+
+    if(error) {
+        return <h1>Hubo un error al cargas los productos</h1>
+    }
 
     return (
-        <div>
-            <h1 style={{ textAlign:"center", marginTop: "0.5em", marginBottom: "1em"}}>{!categoryId ? greeting : categoryId[0].toUpperCase() + categoryId.substring(1)}</h1>
-            <div className="container mb-5">
-              <ItemList products={products}/> 
-            </div>
-                     
+        <div className='container mt-4 mb-5'>
+            <h1 className='text-center mb-4'>{haveCategory(greeting)}</h1>
+            <ItemList products={products} />
+      
         </div>
     )
 }

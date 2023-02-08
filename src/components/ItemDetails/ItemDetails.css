@@ -1,26 +1,77 @@
+.itemDetails-container{
+    border: 1px solid rgba(0, 0, 0, 0.164);
+    background-color: aliceblue;
+
+}
 .itemDetails-title{
-    background-color: #1F487E;
-    border-radius: 8px 8px 0 0;
-    color: white;
+
+    font-size: 1.5em;
+    color: black;
     padding-left: 1em;
-    padding-bottom: 2px;
-    text-align: center;
+    padding-bottom: 0.4em;
+    padding-top: 0.3em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.164);
+    border-top: 1px solid rgba(0, 0, 0, 0.164);
+ 
 }
 
 .itemDetails-price{
     font-size: 2em;
+    font-weight: bold;
  
 }
 
-.itemDetails-center{
+.itemDetails-infoContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
 }
 
+.itemDetails-description{
+     font-weight: bold;
+     font-size: 1.4em ;
+}
+
+
+
 .itemDetails-priceOld{
     font-size: 2em;
     text-decoration: line-through;
     color: rgba(0,0,0,0.5)
+}
+
+.itemDetails-btn{
+    background-color: #080f0110;
+    padding: 1em;
+    border-radius: 0.5em;
+    color: rgb(8, 125, 221);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.itemDetails-shipment svg{
+    color: green
+}
+
+.itemDetails-shipment span{
+    margin-left: 0.5em;
+    color: green
+}
+
+.itemDetails-footer{
+    padding-top: 0.5em;
+}
+
+.itemDetails-footer span{
+    color: green;
+    margin-left: 0.3em;
+    font-size: 1.1em;
+    font-weight: 400;
+}
+
+.itemDetails-footer svg{
+    color: green;
+    margin-bottom: 0.5em;
 }

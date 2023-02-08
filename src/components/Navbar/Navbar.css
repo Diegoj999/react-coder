@@ -25,6 +25,7 @@
     margin-top: 0.4em;
     font-size: 2.4em;
     color: black;
+    cursor: pointer;
 }
 
 .navBar-item-link{
@@ -73,10 +74,30 @@
     margin-top: 1.2em;
     padding-left: 1em;
     display: flex;
-    
 }
 
+.navBar-button{
+    background:#1F487E;
+}
 
+@media (max-width: 600px) {
+
+    .navBar{
+        padding-bottom: 17em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navBar-logo{
+        font-size: 2em;
+    }
+
+
+    .navBar-menu{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
 
 

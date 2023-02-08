@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Item = ({id, name, img, price, stock}) =>{
 
     return (
-              <div className="col-10 col-md-5 col-xl-3">
+              <div className="col-10 col-md-5 col-xl-3 ">
                 <div className="card-sl">
                     <div className="card-image">
                         <img
@@ -19,8 +19,8 @@ const Item = ({id, name, img, price, stock}) =>{
                        {name}
                     </div>
                     <div className="card-price">
-                       <p style={{marginRight: "0.5em"}}>${price * 0.85}</p>
-                       <p className="card-price-withOutDisc">${price}</p>
+                       <p style={{marginRight: "0.5em"}}>${new Intl.NumberFormat('de-DE').format(price)}</p>
+                       <p className="card-price-withOutDisc">${new Intl.NumberFormat('de-DE').format(price*1.25)}</p>
                     </div>
 
                     <Link to={`/detail/${id}`} className="card-button"> Mas Información</Link>

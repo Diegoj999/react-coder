@@ -1,36 +1,36 @@
-import { getProductById } from "../../asyncMock"
-import {useState, useEffect} from 'react'
 import ItemDetails from "../ItemDetails/ItemDetails"
-
 import { useParams } from "react-router-dom"
+import { getProductById } from '../../services/firebase/firestore/products'
+import { useAsync } from '../../hooks/useAsync'
+import { useEffect } from "react"
+import Spinner from "../Spinner/Spinner"
 
 const ItemDetailContainer =  () =>{
-  const [product, setProduct] = useState({})
-  const [loading, setLoading] = useState(true)
+ 
 
   const {productId} = useParams();
 
+  const getProductsWithId = () => getProductById(productId)
+
+  const { data: product, error, loading } = useAsync(getProductsWithId, [productId])
+
   useEffect(() => {
-    getProductById(productId).then(response => {
-        setProduct(response)
-    }).finally(() => {
-        setLoading(false)
-    })
-}, [productId])
+    document.title = 'Detalle del producto'
+}, [])
 
 
 if(loading){
   return (
-    <div className="text-center mt-5">
-      <div className="spinner-grow text-primary" role="status">
-        <span className="sr-only"></span>
-      </div>
-    </div>
+    <Spinner/>
   )
+}
+
+if(error){
+  <h1>hubo un error al cargar el producto</h1>
 }
     return (
         <div>
-            <div className="container mt-5 mb-4 p-0 shadow">
+            <div className="container mt-5 mb-4 p-0 ">
               <ItemDetails {...product}/> 
             </div>
                      

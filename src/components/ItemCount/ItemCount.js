@@ -1,13 +1,14 @@
 import './ItemCount.css'
 import { useState} from 'react';
 
-  const ItemCount = ({onAdd, initial = 1, stock = 0}) =>{
+  const ItemCount = ({onAdd, initial = 1, stock}) =>{
 
   const [quantity, setQuantity] = useState(initial)
 
   const increment = () => {
       if(quantity < stock) {
           setQuantity(prev => prev + 1)
+
       }
   }
 
@@ -17,6 +18,8 @@ import { useState} from 'react';
       }     
   }
 
+  const btnClass = 'btn btn-primary'
+
     return(
         <div>
           <div className=' d-flex'>
@@ -24,7 +27,7 @@ import { useState} from 'react';
               <p className='labelName'>{quantity}</p>
             <button onClick={decrement} className="btnCount">-</button>
           </div>
-          <button onClick={() => {(onAdd(quantity))}} className="btn btn-primary" style={{background: "#1F487E"}}>Agregar al carrito</button>
+          <button onClick={() => {(onAdd(quantity))}} className={ stock > 0  ? btnClass : `${btnClass} disabled`} style={{background:"#1F487E"}} >Agregar al carrito</button>
         </div>
     )
   };
