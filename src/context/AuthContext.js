@@ -4,20 +4,19 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../services/firebase/firebaseConfig"; 
+import { auth } from "../services/firebase/firebaseConfig";
 
 const authContext = createContext();
 
-
 const formatUser = (fUser) => {
   return {
-      uid: fUser.uid,
-      email: fUser.email,
-      name: fUser.displayName
-  }
-}
+    uid: fUser.uid,
+    email: fUser.email,
+    name: fUser.displayName,
+  };
+};
 
 export const useAuth = () => {
   const context = useContext(authContext);
@@ -26,61 +25,52 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fixUser, setFixUser] = useState(false);
 
   const signup = async (email, password, name) => {
-  
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      await updateProfile(auth.currentUser, { displayName: name })
-      setFixUser(true)
-      return true
-
-  }).catch(error=>{
-    console.log(error.code)
-    return error.code
-  })
-
-    
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        await updateProfile(auth.currentUser, { displayName: name });
+        setFixUser(true);
+        return true;
+      })
+      .catch((error) => {
+        console.log(error.code);
+        return error.code;
+      });
   };
 
   const login = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-    .then(()=>{
-      return true
-    })
-      .catch(error=>{
-        return error.code
+      .then(() => {
+        return true;
       })
+      .catch((error) => {
+        return error.code;
+      });
   };
 
   const logout = () => {
-    
-    return signOut(auth)
+    return signOut(auth);
   };
 
-
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setLoading(false)
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setLoading(false);
 
-      if(currentUser){
-        setUser(formatUser(currentUser))
-        
-      }else{
-        setUser(null)
-        setFixUser(false)
-       
+      if (currentUser) {
+        setUser(formatUser(currentUser));
+      } else {
+        setUser(null);
+        setFixUser(false);
       }
     });
 
     return () => {
-      unsubscribe()
-    }
-
+      unsubscribe();
+    };
   }, [fixUser]);
 
   return (
@@ -91,8 +81,6 @@ export function AuthProvider({ children }) {
         user,
         logout,
         loading
-        
-        
       }}
     >
       {children}
