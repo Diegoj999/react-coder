@@ -1,7 +1,13 @@
-# [Proyecto React-coder](https://github.com/Diegoj999/react-coder) 
+# [React-coder](https://github.com/Diegoj999/react-coder) 
 
 ## Resumen
 Ecommerce, de productos de electronica(celulares, notebook, tablet) con carrito y un sistema de usuario para poder guardar las ordenes.
+
+## Display
+![Alt Text](https://i.makeagif.com/media/2-09-2023/Pkft7T.gif)
+# [Video](https://imgur.com/a/TyntmCi)
+
+
 
 ## 📜 Caracteristicas 📜
 - Contiene un Navbar con las categorias de los productos y un Login donde podras o entrar o registrarte en la app.
