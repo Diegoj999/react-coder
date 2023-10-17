@@ -13,3 +13,4 @@ export const createAdaptedProductFromFirestore = (doc) => {
 
     return productAdapted
 }
+

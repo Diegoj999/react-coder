@@ -5,13 +5,13 @@ const Item = ({id, name, img, price, stock}) =>{
 
     return (
               <div className="col-10 col-md-5 col-xl-3 ">
-                <div className="card-sl">
-                    <div className="card-image">
+                <div className="card-sl ">
+                    <div className="card-image bg-white rounded">
                         <img
                             src={img} alt={name} />
                     </div>
 
-                    <div className="card-heading">
+                    <div className="card-heading ">
                     {stock === 0 ? <p className="card-sinStock">Sin Stock</p> : <p className="card-stock">En Stock</p>}
                       
                     </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../context/AuthContext"
 import { CartContext } from "../../../context/CartContext"
 import { db } from "../firebaseConfig"
+import { getDateInit } from "../../../Utils/Dates"
 
 export const useOrders = () =>{
 
@@ -13,18 +14,21 @@ export const useOrders = () =>{
     const { user } = useAuth()
     const [loading, setLoading] = useState(false)
     const [orderId, setOrderId] = useState('')
+    const date = getDateInit().complete
 
     const navigate = useNavigate()
 
     const createOrderWithNumber = async (number) =>{
+
         setLoading(true)
         try{
         const objOrder = {
             buyer: {
                 id: user.uid,
-                name: user.name,
+                name: user.displayName,
                 phone: number,
-                email: user.email
+                email: user.email,
+                date
             },
             items: cart,
             total 
@@ -60,11 +64,13 @@ export const useOrders = () =>{
                 outOfStock.push({id: doc.id, ...dataDoc})
             }
         })
+        console.log("Test")
 
         if(outOfStock.length===0){
             await batch.commit()
 
             const orderRef = collection(db, 'orders')
+            console.log(orderRef)
 
             const orderAdded = await addDoc(orderRef, objOrder)
 
@@ -93,6 +99,7 @@ export const useOrders = () =>{
     const getOrdersByUser = async (id) => {
         try {
             const ordersRef = collection(db, 'orders')
+            console.log(ordersRef)
 
             const ordersSnapshot =  await getDocs(query(ordersRef, where('buyer.id', '==', id)))
             const { docs } = ordersSnapshot

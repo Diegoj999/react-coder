@@ -9,9 +9,9 @@ const ItemListContainer = ({ greeting }) => {
 
     const { categoryId } = useParams()
 
-    const haveCategory = (greeting) => !categoryId ? greeting : categoryId.charAt(0).toUpperCase() + categoryId.slice(1)
+    const haveCategory = (greeting) => !categoryId ? greeting : categoryId.charAt(0).toUpperCase() + categoryId.slice(1) 
 
-    useTitle(haveCategory(greeting), [categoryId])
+    useTitle(haveCategory(greeting) + " | Ecommerce", [categoryId])
 
 
     const getProductsWithCategory = () => getProducts(categoryId)

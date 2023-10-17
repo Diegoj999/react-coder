@@ -13,6 +13,10 @@ import { AuthProvider } from './context/AuthContext';
 import Profile from './components/Profile/Profile';
 import { Toaster } from 'react-hot-toast';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import NotFound from './components/NotFound/NotFound';
+import ChangePassword from './components/ChangePassword/ChangePassword';
+import ChangeInfo from './ChangeInfo/ChangeInfo';
+import Buys from './components/Buys/Buys';
 
 
 
@@ -35,7 +39,12 @@ function App() {
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/login' element={<ProtectedRoute><Login/></ProtectedRoute>} />
             <Route path='/register' element={<ProtectedRoute><Register/></ProtectedRoute>} />
-            <Route path='/profile/:userId' element={<Profile/>} />
+            <Route path='/profile/' element={<Profile/>} />
+            <Route path='/profile/change-password' element={<ChangePassword/>} />
+            <Route path='/profile/change-info' element={<ChangeInfo/>} />
+            <Route path='/profile/buys' element={<Buys/>}/>
+            <Route path="/not-found" element={<NotFound/>} />
+            <Route path="*" element={<NotFound/>} />
           </Routes>
           <Footer/>
         </BrowserRouter>

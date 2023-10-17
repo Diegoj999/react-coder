@@ -1,4 +1,5 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
+import { deleteCartStorage } from "../services/firebase/firestore/cart";
 
 export const CartContext = createContext();
 
@@ -8,7 +9,9 @@ export const CartProvider = ({ children }) => {
   const addItem = (productToAdd) => {
     if (!isInCart(productToAdd.id)) {
       setCart((prev) => {
-        return [...prev, productToAdd];
+        const updatedCart = [...prev, productToAdd];
+        updateLocalStorage(updatedCart);
+        return updatedCart;
       });
     } else {
       setCart((prev) => {
@@ -27,14 +30,36 @@ export const CartProvider = ({ children }) => {
 
   const removeItem = (itemId) => {
     setCart((prev) => {
-      return prev.filter((prod) => prod.id !== itemId);
+      const cartFiltered = prev.filter((prod) => prod.id !== itemId);
+
+      localStorage.setItem("cart", JSON.stringify(cartFiltered));
+
+      if (cartFiltered.length === 0) {
+        clearLocalStorage();
+      }
+      return cartFiltered;
     });
   };
 
-  const clear = () => setCart([])
+  const updateLocalStorage = (cartData) => {
+    localStorage.setItem("cart", JSON.stringify(cartData));
+  };
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem("cart");
+  };
+
+  const clear = (docID) => {
+    clearLocalStorage();
+
+    if (docID) {
+      deleteCartStorage(docID);
+    }
+
+    return setCart([]);
+  };
 
   const isInCart = (id) => cart.some((prod) => id === prod.id);
-
 
   const getTotalQuantity = () => {
     let accu = 0;
@@ -47,22 +72,46 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotal = () => {
-    let total = 0
+    let total = 0;
 
-    cart.forEach(prod => {
-      total += prod.quantity * prod.price
-    })
+    cart.forEach((prod) => {
+      total += prod.quantity * prod.price;
+    });
 
-    return total
-  }
+    return total;
+  };
 
-  const total = getTotal()
+  const total = getTotal();
 
   const totalQuantity = getTotalQuantity();
 
+  const loadCartFromLocalStorage = () => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    } else {
+      clearLocalStorage();
+    }
+  };
+
+  useEffect(() => {
+    // Cargar el carrito desde localStorage al inicio
+    loadCartFromLocalStorage();
+    console.log("asd");
+  }, []);
+
   return (
     <CartContext.Provider
-      value={{ addItem, isInCart, removeItem, clear, totalQuantity, cart, setCart, total }}
+      value={{
+        addItem,
+        isInCart,
+        removeItem,
+        clear,
+        totalQuantity,
+        cart,
+        setCart,
+        total,
+      }}
     >
       {children}
     </CartContext.Provider>

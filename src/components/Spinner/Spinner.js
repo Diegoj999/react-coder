@@ -1,8 +1,10 @@
+import "./Spinner.css";
+
 const Spinner = () => {
   return (
-    <div className="text-center mt-5">
-      <div className="spinner-grow text-primary" role="status">
-  
+    <div className="loader">
+      <div className="spinner-border" role="status" style={{height:"4rem", width:"4rem", color:"#1f487"}}>
+        <span className="sr-only"></span>
       </div>
     </div>
   );

@@ -32,19 +32,19 @@ const ItemDetails = ({
   };
 
   return (
-    <div className="animate__animated animate__bounceInDown shadow pb-5">
-      <h2 className="itemDetails-title">{name}</h2>
+    <div className="animate__animated animate__bounceInDown shadow pb-3 ">
+      <h2 className="itemDetails-title rounded-top">{name}</h2>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-lg-5 d-flex justify-content-center">
-            <img src={img} alt={name} />
+          <div className="col-12 col-lg-5  d-flex justify-content-center">
+            <img className="itemDetails-img rounded" src={img} alt={name} />
           </div>
-          <div className="col-10 col-lg-5 itemDetails-infoContainer">
-            <p className="itemDetails-description">
-              Descripción:
+          <div className="col-10 col-lg-5 itemDetails-infoContainer ">
+            <p className="itemDetails-description border-bottom">
+              Descripción
             </p>
         
-            <p>{description}</p>
+            <p className="itemDetails-description-text">{description}</p>
 
             <div className="itemDetails-shipment">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-car-front-fill" viewBox="0 0 16 16">
@@ -64,7 +64,7 @@ const ItemDetails = ({
               {
                 !user ?  (<p>Logeate para comprar</p>) : (
               isInCart(id) ? (
-                <div className="mt-4 animate__animated animate__fadeInDown">
+                <div className="my-4">
                     <Link className='itemDetails-btn shadow' to="/cart">Terminar compra</Link>
                 </div>
                 

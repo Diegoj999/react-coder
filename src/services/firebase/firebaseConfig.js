@@ -1,7 +1,7 @@
-
 import { initializeApp } from "firebase/app";
-import {getFirestore} from 'firebase/firestore'
-import {getAuth} from 'firebase/auth'
+import { getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -9,12 +9,21 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_projectId,
   storageBucket: process.env.REACT_APP_storageBucket,
   messagingSenderId: process.env.REACT_APP_messagingSenderId,
-  appId: process.env.REACT_APP_appId
+  appId: process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app)
+export const db = getFirestore(app);
 
 export const auth = getAuth(app);
+
+export const storage = getStorage();
+
+export async function uploadFile(file) {
+  const storageRef = ref(storage, "some-child");
+  await uploadBytes(storageRef, file);
+  const url = await getDownloadURL(storageRef);
+  return url;
+}
