@@ -10,7 +10,7 @@ const Navbar = () => {
   const { totalQuantity } = useContext(CartContext);
   const { user, profile, loading } = useAuth();
 
-  if (loading | !profile) return null;
+  if (loading || !profile) return null;
 
   return (
     <nav style={{background:"rgba(205, 205, 205, 0.212)"}} className="navbar navbar-expand-lg  ">
