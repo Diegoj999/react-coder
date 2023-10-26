@@ -6,7 +6,6 @@ import { useTitle } from "../../hooks/useTitle";
 import { toast } from "react-hot-toast";
 import { errorMessages } from "../../Utils/validations";
 import { CartContext } from "../../context/CartContext";
-import { updateCartStorage } from "../../services/firebase/firestore/cart";
 
 const INITIAL_STATE = {
   email: "",
@@ -34,13 +33,11 @@ const Login = () => {
       if (state === "success") {
         const cart = await getCartStorage();
 
-        console.log(cart)
 
         if(cart){
           localStorage.setItem("cart", JSON.stringify(cart));
           setCart(cart);
         }
-    
         
         toast.success(message);
         navigate("/");

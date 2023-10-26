@@ -15,8 +15,9 @@ import { Toaster } from 'react-hot-toast';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import NotFound from './components/NotFound/NotFound';
 import ChangePassword from './components/ChangePassword/ChangePassword';
-import ChangeInfo from './ChangeInfo/ChangeInfo';
+import ChangeInfo from './components/ChangeInfo/ChangeInfo';
 import Buys from './components/Buys/Buys';
+import Testing from './components/Testing/Testing';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <AuthProvider>
         <BrowserRouter>
           <Toaster/>
+          <Testing/>
           <Navbar/>
           <Routes>
             <Route path='/' element={<ItemListContainer greeting={"Todos nuestros productos"}/>}/>

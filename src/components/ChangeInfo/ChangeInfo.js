@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import Spinner from "../components/Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
+
 
 const ChangeInfo = () => {
   const { user, profile, setProfile, updateProfileData } = useAuth();
@@ -10,14 +10,9 @@ const ChangeInfo = () => {
 
   const navigate = useNavigate();
 
-  const INITIAL_STATE = { phoneNumber: "", city: "" };
-
   const handleSubmit = async (e) => {
-    // Actualiza el perfil en Firestore y el estado local
     e.preventDefault();
-
     await updateProfileData(user?.uid, profile);
-
     navigate("/profile");
   };
 
@@ -116,7 +111,7 @@ const ChangeInfo = () => {
                 >
                  Volver al Perfil
                 </Link>
-                <button type="submit" className="btn btn-primary btn-sm">
+                <button type="submit" style={{ background: "#1f487e" }} className="btn btn-primary btn-sm">
                   Guardar cambios
                 </button>
               </div>

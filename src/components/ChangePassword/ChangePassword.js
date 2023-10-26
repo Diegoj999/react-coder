@@ -125,10 +125,10 @@ const ChangePassword = () => {
                     className="text-decoration-none mt-2"
                     style={{ fontSize: "14px" }}
                   >
-                    Return to Profile
+                    Volver al Perfil
                   </Link>
-                  <button type="submit" className="btn btn-primary btn-sm">
-                    Save changes
+                  <button type="submit" style={{ background: "#1f487e" }} className="btn btn-primary btn-sm">
+                    Guardar cambios
                   </button>
                 </div>
               </Form>

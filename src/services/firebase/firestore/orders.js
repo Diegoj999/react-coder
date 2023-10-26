@@ -7,6 +7,7 @@ import { CartContext } from "../../../context/CartContext"
 import { db } from "../firebaseConfig"
 import { getDateInit } from "../../../Utils/Dates"
 
+
 export const useOrders = () =>{
 
     const {cart, total, clear} = useContext(CartContext)
@@ -64,7 +65,6 @@ export const useOrders = () =>{
                 outOfStock.push({id: doc.id, ...dataDoc})
             }
         })
-        console.log("Test")
 
         if(outOfStock.length===0){
             await batch.commit()

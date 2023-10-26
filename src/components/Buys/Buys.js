@@ -18,7 +18,7 @@ const Buys = () => {
         if (user?.uid) {
           const userOrders = await getOrdersByUser(user.uid);
           setOrders(userOrders.reverse());
-          console.log("Me actualice")
+        
         }
       } catch (error) {
         console.error("Error al obtener las órdenes:", error);
@@ -88,41 +88,3 @@ const BuyItem = ({ product }) => {
   );
 };
 
-const BuyContainer = ({ orders }) => {
-  <div
-    style={{ background: "rgba(156, 156, 156, 0.192)" }}
-    className="w-100 rounded my-4 "
-  >
-    <p className="mx-4 pt-2 border-bottom">
-      25 de Septiembre de 2023{" "}
-      <span style={{ fontWeight: "bold" }}>(ID: IKh7B47YvLe8aFjQ4S0u)</span>
-    </p>
-    <div className="d-flex flew-row mx-4">
-      <img
-        style={{ height: "70px" }}
-        src="https://http2.mlstatic.com/D_NQ_NP_612718-MLA52218175587_102022-O.webp"
-        alt="asd"
-      />
-      <div className=" mx-4">
-        <p>Apple IPad Air 10.9 Wi-Fi 64 GB - Gris espacial (4 unidades)</p>
-        <p>Precio total: $100.000</p>
-      </div>
-    </div>
-
-    <p className="border-bottom"></p>
-
-    <div className="d-flex flew-row mx-4">
-      <img
-        style={{ height: "70px" }}
-        src="https://http2.mlstatic.com/D_NQ_NP_612718-MLA52218175587_102022-O.webp"
-        alt="asd"
-      />
-      <div className=" mx-4">
-        <p>Apple IPad Air 10.9 Wi-Fi 64 GB - Gris espacial (4 unidades)</p>
-        <p>Precio total: $100.000</p>
-      </div>
-    </div>
-  </div>;
-
-  return <></>;
-};

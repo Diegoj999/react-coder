@@ -1,34 +1,33 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTitle } from "../../hooks/useTitle";
 import { useOrders } from "../../services/firebase/firestore/orders";
 import { toast } from "react-hot-toast";
 import Spinner from "../Spinner/Spinner";
+import { useAuth } from "../../context/AuthContext";
+import { deleteCartDocument } from "../../services/firebase/firestore/cart";
+import { CartContext } from "../../context/CartContext";
 
 const Checkout = () => {
   const { createOrderWithNumber, loading, orderId } = useOrders();
-  const [phone, setPhone] = useState("");
+  const { user, profile } = useAuth();
+  const { clear } = useContext(CartContext);
 
-  useTitle("Finalizar compra", [])
+  useTitle("Finalizar compra", []);
 
-  const handleSubmit = (e) => {
-
-    e.preventDefault()
-    const expRegSoloNumeros="^[0-9]+$";
-
-    if(phone.length===10 && phone.match(expRegSoloNumeros)){
-
-        createOrderWithNumber(phone)
-    }
-    else{
-        toast.error('Número telefonico invalido')
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
+      createOrderWithNumber(profile.phoneNumber);
+      await deleteCartDocument(user.uid);
+      clear();
+    
   };
 
   if (loading) {
     return (
       <div className="container">
         <h1 className="text-center my-5">Generando orden...</h1>
-        <Spinner/>
+        <Spinner />
       </div>
     );
   }
@@ -42,25 +41,15 @@ const Checkout = () => {
   }
 
   return (
-  
     <div className="container mt-5">
-      <h1 className="text-center">Finalizar Compra con tu cuenta</h1>
+      <h1 className="text-center mb-5">Finalizar Compra con tu cuenta</h1>
 
-    <form onSubmit={handleSubmit}>
-      <div className="d-flex flex-column mt-5">
-        <input
-          type="text"
-          name="phone"
-          placeholder="Ingrese su telefono"
-          className=" mx-auto mb-5 w-25"
-          onChange={(e=> setPhone(e.target.value))}
-          required
-        />
-        <button className="btn btn-primary mx-auto w-25">
-          Generar orden
-        </button>
-
-      </div>
+      <form onSubmit={handleSubmit}>
+      
+          <button className="d-flex justify-content-center mx-auto btn btn-primary w-25">
+            Generar orden
+          </button>
+       
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useRef } from "react";
 import { deleteCartStorage } from "../services/firebase/firestore/cart";
 
 export const CartContext = createContext();
@@ -94,10 +94,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const loadCartFromLocalStorageRef = useRef(loadCartFromLocalStorage);
+
   useEffect(() => {
-    // Cargar el carrito desde localStorage al inicio
-    loadCartFromLocalStorage();
-    console.log("asd");
+    // Solamente es necesario actualizarlo cuando monto el componente por primera vez
+    loadCartFromLocalStorageRef.current();
   }, []);
 
   return (
